@@ -1,4 +1,4 @@
-package com.dalmope.persona.Model.MYSQL.MONGO;
+package com.dalmope.persona.Model.MONGO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +18,7 @@ public class ImageMongo {
     private Long personId;
 
     public ImageMongo(byte[] bytes, Long personID) {
+        this.image = bytes;
+        this.personId = personID;
     }
 }

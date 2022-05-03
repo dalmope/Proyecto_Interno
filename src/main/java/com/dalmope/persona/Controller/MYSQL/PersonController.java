@@ -1,8 +1,9 @@
 package com.dalmope.persona.Controller.MYSQL;
 
 import com.dalmope.persona.Configuration.ErrorCode;
-import com.dalmope.persona.DTO.PersonDTO;
+import com.dalmope.persona.Model.MONGO.ImageMongo;
 import com.dalmope.persona.Model.MYSQL.Person;
+import com.dalmope.persona.Service.ImageMongoService;
 import com.dalmope.persona.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * It's a REST controller that maps HTTP requests to methods that perform CRUD operations on a Person object
+ */
 @RestController
 @RequestMapping ("/person")
 public class PersonController {
@@ -19,9 +23,20 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    ImageMongoService imageMongoService;
+
     @GetMapping
     public List<Person> getPersons() {
         return personService.getPersons();
+    }
+
+    @GetMapping("/all")
+    public List<Person> getPersonsInAllDB() {
+        List<Person> persons = personService.getPersons();
+
+        //List<ImageMongo> imageMongoList = imageMongoService.getImageMongoByPersonId();
+        return persons;
     }
 
     @GetMapping("/{id}")

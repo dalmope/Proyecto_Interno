@@ -13,7 +13,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDTO {
+    private String id;
     private String name;
     private String email;
     private Set<ImageDTO> images = new HashSet<>();
+
 }

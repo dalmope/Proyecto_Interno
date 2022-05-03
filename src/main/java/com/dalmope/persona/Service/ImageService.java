@@ -42,7 +42,7 @@ public class ImageService {
         return image;
     }
 
-    public void deleteImage(Image image) {
-        imageRepository.delete(image);
+    public void deleteImage(Integer id) {
+        imageRepository.deleteById(id);
     }
 }

@@ -1,18 +1,23 @@
 package com.dalmope.persona.Controller.MONGO;
 
 import com.dalmope.persona.Configuration.ErrorCode;
-import com.dalmope.persona.Model.MYSQL.MONGO.ImageMongo;
+import com.dalmope.persona.Model.MONGO.ImageMongo;
 import com.dalmope.persona.Service.ImageMongoService;
 import com.dalmope.persona.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * It's a REST controller that exposes endpoints for saving, retrieving, and deleting images from MongoDB
+ */
 @RestController
-@RequestMapping("/ImageMongo")
+@RequestMapping("/imageMongo")
 public class ImageMongoController {
 
     @Autowired
@@ -43,11 +48,12 @@ public class ImageMongoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteImageById(@PathVariable String id) {
+    public ResponseEntity<?> deleteImageById(@PathVariable String id) {
         if (imageMongoService.getImageMongoById(id).isEmpty()) {
             throw new RuntimeException(ErrorCode.IMAGE_NOT_FOUND.getDescription());
         }
         imageMongoService.deleteImageMongoById(id);
+        return new ResponseEntity<>("Image deleted", HttpStatus.OK);
     }
 
 }
