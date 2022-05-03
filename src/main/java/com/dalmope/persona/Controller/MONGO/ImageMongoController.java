@@ -1,7 +1,7 @@
-package com.dalmope.persona.Controller;
+package com.dalmope.persona.Controller.MONGO;
 
 import com.dalmope.persona.Configuration.ErrorCode;
-import com.dalmope.persona.Model.MONGO.ImageMongo;
+import com.dalmope.persona.Model.MYSQL.MONGO.ImageMongo;
 import com.dalmope.persona.Service.ImageMongoService;
 import com.dalmope.persona.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +34,20 @@ public class ImageMongoController {
         return imageMongoService.getImages();
     }
 
+    @GetMapping("/{id}")
+    public ImageMongo getImageById(@PathVariable String id) {
+        if (imageMongoService.getImageMongoById(id).isEmpty()) {
+            throw new RuntimeException(ErrorCode.IMAGE_NOT_FOUND.getDescription());
+        }
+        return imageMongoService.getImageMongoById(id).get();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteImageById(@PathVariable String id) {
+        if (imageMongoService.getImageMongoById(id).isEmpty()) {
+            throw new RuntimeException(ErrorCode.IMAGE_NOT_FOUND.getDescription());
+        }
+        imageMongoService.deleteImageMongoById(id);
+    }
 
 }

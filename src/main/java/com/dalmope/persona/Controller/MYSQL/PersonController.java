@@ -1,4 +1,4 @@
-package com.dalmope.persona.Controller;
+package com.dalmope.persona.Controller.MYSQL;
 
 import com.dalmope.persona.Configuration.ErrorCode;
 import com.dalmope.persona.DTO.PersonDTO;

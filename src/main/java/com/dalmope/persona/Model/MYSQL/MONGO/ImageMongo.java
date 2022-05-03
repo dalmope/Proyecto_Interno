@@ -1,4 +1,4 @@
-package com.dalmope.persona.Model.MONGO;
+package com.dalmope.persona.Model.MYSQL.MONGO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageMongo {
     private String id;
     private byte[] image;
-    private Long personID;
+    private Long personId;
 
     public ImageMongo(byte[] bytes, Long personID) {
     }

@@ -1,4 +1,4 @@
-package com.dalmope.persona.Controller;
+package com.dalmope.persona.Controller.MYSQL;
 
 import com.dalmope.persona.Configuration.ErrorCode;
 import com.dalmope.persona.Model.MYSQL.Image;
@@ -40,7 +40,7 @@ public class ImageController {
             throw new RuntimeException(ErrorCode.PERSON_NOT_FOUND.getDescription());
         }
 
-        return imageService.addImage(new Image(image.getBytes(), personID));
+        return imageService.addImage(new Image(image.getBytes(), personService.getPersonById(personID).get()));
     }
 
     @DeleteMapping
