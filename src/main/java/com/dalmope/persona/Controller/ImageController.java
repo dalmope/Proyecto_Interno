@@ -3,6 +3,7 @@ package com.dalmope.persona.Controller;
 import com.dalmope.persona.Configuration.ErrorCode;
 import com.dalmope.persona.Model.MYSQL.Image;
 import com.dalmope.persona.Service.ImageService;
+import com.dalmope.persona.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,9 @@ public class ImageController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private PersonService personService;
 
     @GetMapping
     public List<Image> getImages() {
@@ -31,8 +35,12 @@ public class ImageController {
     }
 
     @PostMapping
-    public Image addImage(@ModelAttribute MultipartFile image) throws IOException {
-        return imageService.addImage(new Image(image.getBytes()));
+    public Image addImage(@ModelAttribute MultipartFile image, Long personID) throws IOException {
+        if (personService.getPersonById(personID).isEmpty()){
+            throw new RuntimeException(ErrorCode.PERSON_NOT_FOUND.getDescription());
+        }
+
+        return imageService.addImage(new Image(image.getBytes(), personID));
     }
 
     @DeleteMapping

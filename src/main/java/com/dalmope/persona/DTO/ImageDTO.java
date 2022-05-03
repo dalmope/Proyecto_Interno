@@ -13,6 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageDTO {
 
     private String id;
-    private MultipartFile image;
+    private byte[] image;
 
 }

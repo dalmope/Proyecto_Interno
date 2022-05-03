@@ -27,13 +27,16 @@ public class AwsBucketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsBucketService.class);
 
-    @Value("${aws.bucket.name}")
+    @Value("${aws.s3.bucket}")
     private String bucketName;
+
+    @Value("${aws.s3.url}")
+    private String url;
 
     @Autowired
     private AmazonS3 amazonS3;
 
-    public void uploadFile(MultipartFile file) {
+    public String uploadFile(MultipartFile file) {
         File mainFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
         try (FileOutputStream stream = new FileOutputStream(mainFile)) {
             stream.write(file.getBytes());
@@ -44,6 +47,7 @@ public class AwsBucketService {
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
+        return url + "/" + mainFile.getName();
     }
 
     public void deleteFile(String fileName) {

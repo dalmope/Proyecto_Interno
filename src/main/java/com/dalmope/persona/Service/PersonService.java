@@ -44,7 +44,7 @@ public class PersonService {
 
     public Person savePerson(Person person) {
         try {
-            return personRepository.save(person);
+            return personRepository.saveAndFlush(person);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

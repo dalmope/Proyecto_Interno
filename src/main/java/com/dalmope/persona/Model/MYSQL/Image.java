@@ -33,10 +33,6 @@ public class Image {
 
     public Image() {}
 
-    public Image(byte[] image) {
-        this.image = image;
-    }
-
-
+    public Image(byte[] bytes, Long personID) {}
 
 }

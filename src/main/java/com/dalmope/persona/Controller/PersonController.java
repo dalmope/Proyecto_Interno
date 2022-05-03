@@ -26,7 +26,10 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public Optional<Person> getPerson(@PathVariable Long id) {
-        return personService.getPersonById(id);
+        if (personService.getPersonById(id).isPresent()) {
+            return personService.getPersonById(id);
+        }
+        throw new RuntimeException(ErrorCode.PERSON_NOT_FOUND.getDescription());
     }
 
     @PostMapping
@@ -40,14 +43,15 @@ public class PersonController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePerson(@PathVariable Long id, @RequestBody Person person) {
         if (personService.getPersonByNameOrEmail(person.getName(), person.getName()).isPresent()) {
-            return new ResponseEntity<>(ErrorCode.DUPLICATE_USER, ErrorCode.DUPLICATE_USER.getCode());
+            throw new RuntimeException(ErrorCode.DUPLICATE_USER.getDescription());
         }
 
         if (personService.getPersonById(id).isPresent()) {
             personService.updatePerson(person);
             return new ResponseEntity<>("Person was successfully updated." , HttpStatus.OK);
         }
-        return new ResponseEntity<>("Person doesn't  exist." , HttpStatus.OK);
+
+        throw new RuntimeException(ErrorCode.PERSON_NOT_FOUND.getDescription());
     }
 
     @DeleteMapping("/{id}")
@@ -56,6 +60,6 @@ public class PersonController {
             personService.deletePerson(id);
             return new ResponseEntity<>("Person was successfully deleted.", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Person doesn't  exist." , HttpStatus.OK);
+        throw new RuntimeException(ErrorCode.PERSON_NOT_FOUND.getDescription());
     }
 }

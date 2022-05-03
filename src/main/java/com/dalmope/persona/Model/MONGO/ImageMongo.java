@@ -14,5 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class ImageMongo {
     private String id;
-    private MultipartFile image;
+    private byte[] image;
+    private Long personID;
+
+    public ImageMongo(byte[] bytes, Long personID) {
+    }
 }

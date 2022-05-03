@@ -7,6 +7,6 @@ import org.springframework.http.HttpStatus;
 @Data
 @Builder
 public class ErrorModel {
-    private HttpStatus statusCode;
+    private HttpStatus status;
     private String message;
 }
