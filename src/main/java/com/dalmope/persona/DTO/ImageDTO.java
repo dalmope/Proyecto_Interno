@@ -12,7 +12,11 @@ import lombok.Setter;
 public class ImageDTO {
 
     private String id;
-    private byte[] image;
+    private byte[] data;
 
+    public ImageDTO(byte[] bytes) {
+        this.data = bytes;
+    }
 }
+
 
